@@ -28,7 +28,15 @@ const CourseIndex = () => {
 
   return (
     <>
-      <div className="row">
+      <h2>Toutes les formations</h2>
+      <div className="row mt-3 mb-3">
+        {courselist &&
+          courselist.map((course) => (
+            <CoursePreview key={ShortID.generate()} course={course} />
+          ))}
+      </div>
+      <h2>Mes formations</h2>
+      <div className="row mt-3 mb-3">
         {courselist &&
           courselist.map((course) => (
             <CoursePreview key={ShortID.generate()} course={course} />
