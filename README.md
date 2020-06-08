@@ -8,9 +8,9 @@ Starter for api project with :
 
 ## Installation
 
-`git clone git@github.com:luca-montaigut/front_myloc.git`
+`git clone git@github.com:luca-montaigut/front_formyou.git`
 
-`cd front_myloc`
+`cd front_formyou`
 
 `npm install`
 
