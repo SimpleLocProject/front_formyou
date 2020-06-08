@@ -44,25 +44,42 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="offset-md-3">
       {!isAuthenticated && (
         <>
-          <form onSubmit={login}>
-            <input
-              type="text"
-              placeholder="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <input type="submit" value="Envoyer" />
+          <form className="card m-5 p-5 col-md-6 " onSubmit={login}>
+            <div className="mb-3 text-center">
+              <h3>Se connecter</h3>
+            </div>
+            <div class="form-group">
+              <input
+                type="email"
+                aria-describedby="emailHelp"
+                placeholder="Entrez votre email"
+                class="form-control"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Mot de passe"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group text-center">
+              <input
+                className="btn btn-primary btn-lg"
+                type="submit"
+                value="Je m'inscris"
+              />
+            </div>
           </form>
         </>
       )}
