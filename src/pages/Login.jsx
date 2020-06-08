@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
-import { loginSuccess, loginFail } from "../redux/actions/authActions";
+import { fetchToLogin } from "../redux/middlewares/authMiddleware"
 
 const Login = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -13,35 +13,18 @@ const Login = () => {
   const history = useHistory();
 
   const login = async (e) => {
-    e.preventDefault();
-    const API_URL = process.env.REACT_APP_API_URL;
     const data = {
       user: {
         email: email,
-        password: password,
-      },
-    };
-
-    const response = await fetch(`${API_URL}/login`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    try {
-      const token = await response.headers.get("authorization").split(" ")[1];
-      const user = await response.json();
-      const userToLog = { token, user };
-      dispatch(loginSuccess(userToLog));
-      history.push("/");
-    } catch (error) {
-      console.log(error);
-      alert("Aucun utilisateur correspondant");
-      dispatch(loginFail());
+        password: password
+      }
     }
-  };
+    e.preventDefault()
+    if (await dispatch(fetchToLogin(data))) {
+      history.push("/");
+    }
+
+  }
 
   return (
     <div className="offset-md-3">
