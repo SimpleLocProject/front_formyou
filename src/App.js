@@ -10,7 +10,7 @@ import Navbar from './components/Navbar';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 
-import { loadUser } from './redux/actions/authActions'
+import { fetchToLoadUser } from './redux/middlewares/authMiddleware';
 
 const App = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
@@ -18,26 +18,11 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const autoLoginUser = async () => {
-      const API_URL = process.env.REACT_APP_API_URL
-      const response = await fetch(`${API_URL}/api/v1/profile`, {
-        method: 'get',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${Cookies.get('token')}`
-        },
-      })
-      try {
+    const token = Cookies.get('token')
 
-        const userToLoad = await response.json()
-        dispatch(loadUser(userToLoad))
-
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    if (Cookies.get('token')) {
-      autoLoginUser()
+    if (token) {
+      console.log(token)
+      dispatch(fetchToLoadUser(token))
     }
   }, [dispatch])
 

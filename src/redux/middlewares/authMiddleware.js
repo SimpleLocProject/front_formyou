@@ -50,7 +50,26 @@ const fetchToLogin = (data) => {
       return false
     }
   }
-
 }
 
-export { fetchToRegister, fetchToLogin }
+const fetchToLoadUser = (token) => {
+  return async (dispatch) => {
+    const API_URL = process.env.REACT_APP_API_URL
+    const response = await fetch(`${API_URL}/api/v1/profile`, {
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    })
+    try {
+      const userToLoad = await response.json()
+      dispatch(authActions.loadUser(userToLoad))
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export { fetchToRegister, fetchToLogin, fetchToLoadUser }
