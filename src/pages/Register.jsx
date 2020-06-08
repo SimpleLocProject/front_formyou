@@ -30,6 +30,7 @@ const Register = () => {
     }
   }
 
+
   return (
     <div className="offset-md-3">
       <form className="card m-5 p-5 col-md-6 " onSubmit={register}>
