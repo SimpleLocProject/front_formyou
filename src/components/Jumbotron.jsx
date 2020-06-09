@@ -14,7 +14,7 @@ const FlashMessage = () => {
 
   return (
     <div className="jumbotron jumbotron-fluid" style={jumbostyle}>
-      <div class="container">
+      <div className="container">
         <h1 className="display-4">Découvrez Form You !</h1>
         <p className="lead">Une plateforme unique pour apprendre les compétences de vos rêves.</p>
         <hr className="my-4" />

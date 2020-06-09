@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Cookies from "js-cookie";
 
+import "./App.css"
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
@@ -16,6 +17,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import { fetchToLoadUser } from './redux/middlewares/authMiddleware';
 import FlashMessage from './components/FlashMessage';
+import Footer from "./components/Footer";
 
 
 const App = () => {
@@ -70,7 +72,7 @@ const App = () => {
         <AuthRoute path="/profile" component={Profile} />
         <Route path="/" component={() => <div>ERREUR 404</div>} />
       </Switch>
-
+      <Footer />
     </Router>
   );
 };
