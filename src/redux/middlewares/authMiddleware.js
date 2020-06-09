@@ -22,6 +22,7 @@ export const fetchToRegister = (data) => {
       const userToRegister = { token, user };
       dispatch(authActions.registerSuccess(userToRegister));
       dispatch(displaySuccess("Inscription réussie"));
+
     } catch (error) {
       console.log(error);
       dispatch(displayError("Erreur d'enregistrement"));

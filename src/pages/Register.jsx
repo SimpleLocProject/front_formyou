@@ -41,6 +41,8 @@ const Register = () => {
   };
 
   return (
+
+    <div className="container mt-5">
     <div className="offset-md-2">
       <form className="card m-5 p-5 col-md-8 " onSubmit={register}>
         <div className="mb-3 text-center">
@@ -81,64 +83,65 @@ const Register = () => {
           <label className="ml-5 form-check-label" htmlFor="gridRadios2">
             Administrateur
           </label>
-        </div>
+          </div>
 
-        <div className="form-group">
-          <input
-            id="Firstname"
-            className="form-control"
-            type="text"
-            placeholder="Prénom"
-            value={first_name}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </div>
+          <div className="form-group">
+            <input
+              id="Firstname"
+              className="form-control"
+              type="text"
+              placeholder="Prénom"
+              value={first_name}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <input
-            id="Lastname"
-            className="form-control"
-            type="text"
-            placeholder="Nom"
-            value={last_name}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </div>
+          <div className="form-group">
+            <input
+              id="Lastname"
+              className="form-control"
+              type="text"
+              placeholder="Nom"
+              value={last_name}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <input
-            type="email"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Entrez votre email"
-            className="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
+          <div className="form-group">
+            <input
+              type="email"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Entrez votre email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <input
-            type="password"
-            className="form-control"
-            id="exampleInputPassword1"
-            placeholder="Mot de passe"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group text-center">
-          <input
-            className="btn btn-primary btn-lg"
-            type="submit"
-            value="Je m'inscris"
-          />
-        </div>
-      </form>
+          <div className="form-group">
+            <input
+              type="password"
+              className="form-control"
+              id="exampleInputPassword1"
+              placeholder="Mot de passe"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group text-center">
+            <input
+              className="btn btn-primary btn-lg"
+              type="submit"
+              value="Je m'inscris"
+            />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

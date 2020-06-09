@@ -1,13 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import CourseIndex from "./../components/Courses/CourseIndex";
+import Jumbotron from "./../components/Jumbotron";
 const Home = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const user = useSelector((state) => state.auth.user);
 
   return (
     <>
-      <CourseIndex />
+      <Jumbotron />
+      <div className="container mt-5">
+        <CourseIndex />
+      </div>
     </>
   );
 };
