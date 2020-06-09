@@ -40,8 +40,8 @@ const App = () => {
         isAuthenticated ? (
           <Redirect to={{ pathname: "/" }} />
         ) : (
-          <Component {...props} />
-        )
+            <Component {...props} />
+          )
       }
     />
   );
@@ -53,8 +53,8 @@ const App = () => {
         isAuthenticated ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{ pathname: "/login" }} />
-        )
+            <Redirect to={{ pathname: "/login" }} />
+          )
       }
     />
   );
@@ -63,15 +63,15 @@ const App = () => {
     <Router basename={process.env.PUBLIC_URL}>
       {displayFlash && <FlashMessage />}
       <Navbar />
-      <Switch>
-        <div className="container mt-5">
+      <div className="container mt-5">
+        <Switch>
           <Route exact path="/" component={Home} />
           <UnAuthRoute path="/login" component={Login} />
           <UnAuthRoute path="/signup" component={Register} />
           <AuthRoute path="/profile" component={Profile} />
           <Route path="/" component={() => <div>ERREUR 404</div>} />
-        </div>
-      </Switch>
+        </Switch>
+      </div>
     </Router>
   );
 };
