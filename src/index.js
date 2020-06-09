@@ -8,13 +8,16 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import "bootstrap/dist/css/bootstrap.css";
-import 'bootstrap/dist/js/bootstrap.js';
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import "bootstrap/dist/js/bootstrap.js";
+import "./App.css";
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
 
 library.add(fab, faSearch)
+
 
 ReactDOM.render(
   <React.StrictMode>
