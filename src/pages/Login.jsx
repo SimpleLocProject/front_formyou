@@ -23,7 +23,6 @@ const Login = () => {
     if (await dispatch(fetchToLogin(data))) {
       history.push("/");
     }
-
   }
 
   return (

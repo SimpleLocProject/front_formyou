@@ -14,9 +14,9 @@ import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-
 import { fetchToLoadUser } from './redux/middlewares/authMiddleware';
 import FlashMessage from './components/FlashMessage';
+
 
 const App = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)

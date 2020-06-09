@@ -1,4 +1,5 @@
 import * as authActions from "../actions/authActions"
+
 import { displaySuccess, displayError } from "./flashMiddleware"
 
 export const fetchToRegister = (data) => {
@@ -16,6 +17,7 @@ export const fetchToRegister = (data) => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
+
       const token = await response.headers.get('authorization').split(' ')[1]
       const user = await response.json()
       const userToRegister = { token, user }
@@ -29,6 +31,8 @@ export const fetchToRegister = (data) => {
     }
   }
 }
+
+
 
 export const fetchToLogin = (data) => {
   return async (dispatch) => {
@@ -59,6 +63,7 @@ export const fetchToLogin = (data) => {
   }
 }
 
+
 export const fetchToLoadUser = (token) => {
   return async (dispatch) => {
     const API_URL = process.env.REACT_APP_API_URL
@@ -81,3 +86,4 @@ export const fetchToLoadUser = (token) => {
     }
   }
 }
+
