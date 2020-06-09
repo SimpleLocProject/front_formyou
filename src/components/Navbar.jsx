@@ -8,6 +8,7 @@ import { logoutSuccess } from '../redux/actions/authActions'
 
 const Navbar = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  const user = useSelector(state => state.auth.user)
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -19,18 +20,38 @@ const Navbar = () => {
 
   return (
     <>
-      <Link to="/">Home</Link>
-      {!isAuthenticated &&
-        <>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Register</Link>
-        </>
-      }
-      {isAuthenticated &&
-        <>
-          <Link to="/profile">Profile</Link>
-          <button onClick={logout}>Se déconnecter</button>
-        </>}
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <Link to="/" className="navbar-brand ml-2">Form You</Link>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse d-flex justify-content-end mr-2" id="navbarNavAltMarkup">
+          <div className="navbar-nav">
+            <li className="nav-item dropdown">
+              {!isAuthenticated &&
+                <>
+                  <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">S'inscrire / Se connecter</a>
+                  <div className="dropdown-menu">
+                    <Link to="/signup" className="dropdown-item">S'inscrire</Link>
+                    <div className="dropdown-divider"></div>
+                    <Link to="/login" className="dropdown-item">Se connecter</Link>
+                  </div>
+                </>}
+              {isAuthenticated &&
+                <>
+                  <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{user.email}</a>
+                  <div className="dropdown-menu">
+                    <Link to="/profile" className="dropdown-item">Profile</Link>
+                    <div className="dropdown-divider"></div>
+                    <Link to="#" onClick={logout} className="dropdown-item">Se déconnecter</Link>
+                  </div>
+                </>}
+            </li>
+          </div>
+        </div>
+      </nav>
+
+
     </>
   );
 };
