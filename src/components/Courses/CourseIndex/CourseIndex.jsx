@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import CoursePreview from "./../CoursePreview";
 import { fakeCourses } from "./../../../fakecontent/courses";
+import CourseSearch from "./../CourseSearch";
 const CourseIndex = () => {
   const [courselist, SetCourseList] = useState();
+  const [filteredcourselist, SetFilteredCourseList] = useState();
   const ShortID = require("shortid");
 
   useEffect(() => {
@@ -26,12 +28,26 @@ const CourseIndex = () => {
     SetCourseList(fakeCourses.courses);
   }, []);
 
+  const search = (value) => {
+    const filter = courselist.filter(
+      (course) =>
+        course.title.includes(value) || course.description.includes(value)
+    );
+    SetFilteredCourseList(filter);
+  };
+
+  let courses;
+  filteredcourselist === undefined
+    ? (courses = courselist)
+    : (courses = filteredcourselist);
+
   return (
     <>
       <h2>Toutes les formations</h2>
+      <CourseSearch search={search} />
       <div className="row mt-3 mb-3">
-        {courselist &&
-          courselist.map((course) => (
+        {courses &&
+          courses.map((course) => (
             <CoursePreview key={ShortID.generate()} course={course} />
           ))}
       </div>
