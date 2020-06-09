@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { registerFail, registerSuccess } from "../redux/actions/authActions";
+import { fetchToRegister } from "../redux/middlewares/authMiddleware"
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -15,40 +15,20 @@ const Register = () => {
   const history = useHistory();
 
   const register = async (e) => {
-    e.preventDefault();
-    const API_URL = process.env.REACT_APP_API_URL;
     const data = {
       user: {
-        email,
-        password,
-        first_name,
-        last_name,
-        is_teacher,
-      },
-    };
-
-    const response = await fetch(`${API_URL}/signup`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    try {
-      const token = await response.headers.get("authorization").split(" ")[1];
-      const user = await response.json();
-      const userToRegister = { token, user };
-      dispatch(registerSuccess(userToRegister));
-    } catch (error) {
-      console.log(error);
-      alert("Erreur d'enregistrement");
-      dispatch(registerFail());
-      return false;
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        password: password,
+        is_teacher: is_teacher
+      }
     }
-
-    history.push("/");
-  };
+    e.preventDefault()
+    if (await dispatch(fetchToRegister(data))) {
+      history.push("/");
+    }
+  }
 
   return (
     <div className="offset-md-3">
@@ -65,7 +45,7 @@ const Register = () => {
             value="false"
             onChange={(e) => SetIsTeacher(false)}
           />
-          <label className="form-check-label" for="gridRadios1">
+          <label className="form-check-label" htmlFor="gridRadios1">
             Je suis un étudiant
           </label>
           <input
@@ -76,7 +56,7 @@ const Register = () => {
             value="true"
             onChange={(e) => SetIsTeacher(true)}
           />
-          <label className="ml-5 form-check-label" for="gridRadios2">
+          <label className="ml-5 form-check-label" htmlFor="gridRadios2">
             Je suis un enseignant
           </label>
         </div>
@@ -84,7 +64,7 @@ const Register = () => {
         <div className="form-group">
           <input
             id="Firstname"
-            class="form-control"
+            className="form-control"
             type="text"
             placeholder="Prénom"
             value={first_name}
@@ -96,7 +76,7 @@ const Register = () => {
         <div className="form-group">
           <input
             id="Lastname"
-            class="form-control"
+            className="form-control"
             type="text"
             placeholder="Nom"
             value={last_name}
@@ -105,23 +85,23 @@ const Register = () => {
           />
         </div>
 
-        <div class="form-group">
+        <div className="form-group">
           <input
             type="email"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Entrez votre email"
-            class="form-control"
+            className="form-control"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
 
-        <div class="form-group">
+        <div className="form-group">
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             id="exampleInputPassword1"
             placeholder="Mot de passe"
             value={password}
