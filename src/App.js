@@ -63,15 +63,13 @@ const App = () => {
     <Router basename={process.env.PUBLIC_URL}>
       {displayFlash && <FlashMessage />}
       <Navbar />
-      <div className="container mt-5">
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <UnAuthRoute path="/login" component={Login} />
-          <UnAuthRoute path="/signup" component={Register} />
-          <AuthRoute path="/profile" component={Profile} />
-          <Route path="/" component={() => <div>ERREUR 404</div>} />
-        </Switch>
-      </div>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <UnAuthRoute path="/login" component={Login} />
+        <UnAuthRoute path="/signup" component={Register} />
+        <AuthRoute path="/profile" component={Profile} />
+        <Route path="/" component={() => <div>ERREUR 404</div>} />
+      </Switch>
     </Router>
   );
 };

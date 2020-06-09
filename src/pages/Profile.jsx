@@ -7,11 +7,11 @@ const Profile = () => {
   const { id, email } = user
 
   return (
-    <>
+    <div className="container mt-5">
       <h1>Welcome on your profile.</h1>
       <p>id : {id}</p>
       <p>mail : {email}</p>
-    </>
+    </div>
   )
 }
 
