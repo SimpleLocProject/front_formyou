@@ -30,7 +30,6 @@ const Register = () => {
     }
   }
 
-
   return (
     <div className="offset-md-3">
       <form className="card m-5 p-5 col-md-6 " onSubmit={register}>
@@ -46,7 +45,7 @@ const Register = () => {
             value="false"
             onChange={(e) => SetIsTeacher(false)}
           />
-          <label className="form-check-label" for="gridRadios1">
+          <label className="form-check-label" htmlFor="gridRadios1">
             Je suis un étudiant
           </label>
           <input
@@ -57,7 +56,7 @@ const Register = () => {
             value="true"
             onChange={(e) => SetIsTeacher(true)}
           />
-          <label className="ml-5 form-check-label" for="gridRadios2">
+          <label className="ml-5 form-check-label" htmlFor="gridRadios2">
             Je suis un enseignant
           </label>
         </div>
@@ -65,7 +64,7 @@ const Register = () => {
         <div className="form-group">
           <input
             id="Firstname"
-            class="form-control"
+            className="form-control"
             type="text"
             placeholder="Prénom"
             value={first_name}
@@ -77,7 +76,7 @@ const Register = () => {
         <div className="form-group">
           <input
             id="Lastname"
-            class="form-control"
+            className="form-control"
             type="text"
             placeholder="Nom"
             value={last_name}
@@ -86,23 +85,23 @@ const Register = () => {
           />
         </div>
 
-        <div class="form-group">
+        <div className="form-group">
           <input
             type="email"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             placeholder="Entrez votre email"
-            class="form-control"
+            className="form-control"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
 
-        <div class="form-group">
+        <div className="form-group">
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             id="exampleInputPassword1"
             placeholder="Mot de passe"
             value={password}

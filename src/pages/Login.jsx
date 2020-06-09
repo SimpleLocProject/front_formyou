@@ -33,22 +33,22 @@ const Login = () => {
             <div className="mb-3 text-center">
               <h3>Se connecter</h3>
             </div>
-            <div class="form-group">
+            <div className="form-group">
               <input
                 type="email"
                 aria-describedby="emailHelp"
                 placeholder="Entrez votre email"
-                class="form-control"
+                className="form-control"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
 
-            <div class="form-group">
+            <div className="form-group">
               <input
                 type="password"
-                class="form-control"
+                className="form-control"
                 placeholder="Mot de passe"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
