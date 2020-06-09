@@ -9,10 +9,18 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
-  const [status, SetStatus] = useState("");
+  const [is_teacher, SetIsTeacher] = useState(false);
+  const [is_admin, SetIsAdmin] = useState(false);
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const handleStatus = (status) => {
+    if (status === "Teacher") {
+      SetIsTeacher(true);
+    } else if (status === "Admin") {
+      SetIsAdmin(true);
+    }
+  };
 
   const register = async (e) => {
     const data = {
@@ -21,7 +29,9 @@ const Register = () => {
         last_name,
         email,
         password,
-        status,
+        is_teacher,
+        is_admin,
+        can_access: true,
       },
     };
     e.preventDefault();
@@ -46,7 +56,7 @@ const Register = () => {
             name="gridRadios"
             id="gridRadios1"
             value="false"
-            onChange={(e) => SetStatus(0)}
+            onChange={(e) => handleStatus("Student")}
           />
           <label className="ml-5 form-check-label" htmlFor="gridRadios1">
             Etudiant
@@ -57,7 +67,7 @@ const Register = () => {
             name="gridRadios"
             id="gridRadios2"
             value="true"
-            onChange={(e) => SetStatus(1)}
+            onChange={(e) => handleStatus("Teacher")}
           />
           <label className="ml-5 form-check-label" htmlFor="gridRadios2">
             Enseignant
@@ -68,7 +78,7 @@ const Register = () => {
             name="gridRadios"
             id="gridRadios2"
             value="true"
-            onChange={(e) => SetStatus(2)}
+            onChange={(e) => handleStatus("Admin")}
           />
           <label className="ml-5 form-check-label" htmlFor="gridRadios2">
             Administrateur
