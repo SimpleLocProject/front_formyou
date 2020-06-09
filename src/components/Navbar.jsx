@@ -30,7 +30,7 @@ const Navbar = () => {
             <li className="nav-item dropdown">
               {!isAuthenticated &&
                 <>
-                  <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">S'inscrire / Se connecter</a>
+                  <button className="link-button nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">S'inscrire / Se connecter</button>
                   <div className="dropdown-menu">
                     <Link to="/signup" className="dropdown-item">S'inscrire</Link>
                     <div className="dropdown-divider"></div>
@@ -39,7 +39,7 @@ const Navbar = () => {
                 </>}
               {isAuthenticated &&
                 <>
-                  <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{user.email}</a>
+                  <button className="link-button nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{user.email}</button>
                   <div className="dropdown-menu">
                     <Link to="/profile" className="dropdown-item">Profile</Link>
                     <div className="dropdown-divider"></div>
