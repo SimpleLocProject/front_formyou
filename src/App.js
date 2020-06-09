@@ -70,6 +70,7 @@ const App = () => {
         <AuthRoute path="/profile" component={Profile} />
         <Route path="/" component={() => <div>ERREUR 404</div>} />
       </Switch>
+
     </Router>
   );
 };
