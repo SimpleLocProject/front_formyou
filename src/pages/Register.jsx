@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { fetchToRegister } from "../redux/middlewares/authMiddleware"
+import { fetchToRegister } from "../redux/middlewares/authMiddleware";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
-  const [is_teacher, SetIsTeacher] = useState("");
+  const [status, SetStatus] = useState("");
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -17,36 +17,37 @@ const Register = () => {
   const register = async (e) => {
     const data = {
       user: {
-        first_name: first_name,
-        last_name: last_name,
-        email: email,
-        password: password,
-        is_teacher: is_teacher
-      }
-    }
-    e.preventDefault()
+        first_name,
+        last_name,
+        email,
+        password,
+        status,
+      },
+    };
+    e.preventDefault();
     if (await dispatch(fetchToRegister(data))) {
       history.push("/");
     }
-  }
+  };
 
   return (
-    <div className="offset-md-3">
-      <form className="card m-5 p-5 col-md-6 " onSubmit={register}>
+    <div className="offset-md-2">
+      <form className="card m-5 p-5 col-md-8 " onSubmit={register}>
         <div className="mb-3 text-center">
           <h2>Créer un compte</h2>
         </div>
         <div className="form-check mb-3">
+          <span>Je suis :</span>
           <input
-            className="form-check-input"
+            className="form-check-input ml-4"
             type="radio"
             name="gridRadios"
             id="gridRadios1"
             value="false"
-            onChange={(e) => SetIsTeacher(false)}
+            onChange={(e) => SetStatus(0)}
           />
-          <label className="form-check-label" htmlFor="gridRadios1">
-            Je suis un étudiant
+          <label className="ml-5 form-check-label" htmlFor="gridRadios1">
+            Etudiant
           </label>
           <input
             className="form-check-input ml-4"
@@ -54,10 +55,21 @@ const Register = () => {
             name="gridRadios"
             id="gridRadios2"
             value="true"
-            onChange={(e) => SetIsTeacher(true)}
+            onChange={(e) => SetStatus(1)}
           />
           <label className="ml-5 form-check-label" htmlFor="gridRadios2">
-            Je suis un enseignant
+            Enseignant
+          </label>
+          <input
+            className="form-check-input ml-4"
+            type="radio"
+            name="gridRadios"
+            id="gridRadios2"
+            value="true"
+            onChange={(e) => SetStatus(2)}
+          />
+          <label className="ml-5 form-check-label" htmlFor="gridRadios2">
+            Administrateur
           </label>
         </div>
 
