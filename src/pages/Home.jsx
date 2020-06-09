@@ -1,10 +1,14 @@
 import React from "react";
 import CourseIndex from "./../components/Courses/CourseIndex";
+import Jumbotron from "./../components/Jumbotron";
 const Home = () => {
 
   return (
     <>
-      <CourseIndex />
+      <Jumbotron />
+      <div className="container mt-5">
+        <CourseIndex />
+      </div>
     </>
   );
 };
