@@ -10,7 +10,7 @@ import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.css";
 
 import "bootstrap/dist/js/bootstrap.js";
-import "./App.css";
+import "./main.scss";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
