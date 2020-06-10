@@ -1,27 +1,47 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const CourseSearch = ({ search }) => {
+const CourseSearch = ({ search, catlist, handleSelect }) => {
   const [keyword, SetKeyword] = useState();
+  const ShortID = require("shortid");
 
   const handleSearch = (value) => {
     SetKeyword(value);
     search(value);
   };
-  return (
 
+  return (
     <>
-      <div className="mt-3 p-0 col-md-6">
-        <div id="searchbar" className="d-flex justify-content-between flew-row align-items-center form-div">
-          <FontAwesomeIcon icon="search" className="mx-2" />
-          <input
-            className="form-control"
-            type="text"
-            placeholder="Rechercher une formation"
-            value={keyword}
-            onChange={(e) => handleSearch(e.currentTarget.value)}
-          />
-          <br /><br />
+      <div className="row">
+        <div className="col-md-6 mt-4">
+          <select
+            onChange={(e) => handleSelect(e.target.value)}
+            className="form-control form-control-lg"
+          >
+            <option defaultValue="none">Toutes les formations</option>
+            {catlist.map((cat) => (
+              <option value={cat.name} key={ShortID.generate()}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="col-md-6">
+          <div
+            id="searchbar"
+            className="d-flex justify-content-between flew-row align-items-center form-div"
+          >
+            <FontAwesomeIcon icon="search" className="mx-2" />
+            <input
+              className="form-control"
+              type="text"
+              placeholder="Rechercher une formation"
+              value={keyword}
+              onChange={(e) => handleSearch(e.currentTarget.value)}
+            />
+            <br />
+            <br />
+          </div>
         </div>
       </div>
     </>

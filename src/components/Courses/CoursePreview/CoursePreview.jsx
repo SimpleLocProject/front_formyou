@@ -1,15 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CoursePreview = ({ course }) => {
+  const ShortID = require("shortid");
   return (
     <>
       <div className="card col-md-3 m-3">
         <div className="card-body">
           <h5 className="card-title">{course.title}</h5>
           <p className="card-text">{course.description}</p>
-          <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a>
+          {course.categories.map((cat) => (
+            <p key={ShortID.generate()}>
+              <span className="badge badge-info">{cat.name}</span>
+            </p>
+          ))}
+          <Link className="btn btn-primary" to={"/course/" + course.id}>
+            Detail
+          </Link>
         </div>
       </div>
     </>
