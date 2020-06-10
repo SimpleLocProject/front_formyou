@@ -9,16 +9,25 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
-  const [is_teacher, SetIsTeacher] = useState(false);
-  const [is_admin, SetIsAdmin] = useState(false);
+  const [is_teacher, setIsTeacher] = useState(false);
+  const [is_admin, setIsAdmin] = useState(false);
 
   const dispatch = useDispatch();
   const history = useHistory();
   const handleStatus = (status) => {
-    if (status === "Teacher") {
-      SetIsTeacher(true);
-    } else if (status === "Admin") {
-      SetIsAdmin(true);
+    switch (status) {
+      case "Student":
+        setIsTeacher(false);
+        setIsAdmin(false);
+        break;
+      case "Teacher":
+        setIsTeacher(true);
+        setIsAdmin(false);
+        break;
+      case "Admin":
+        setIsTeacher(false);
+        setIsAdmin(true);
+        break;
     }
   };
 
@@ -41,48 +50,47 @@ const Register = () => {
   };
 
   return (
-
     <div className="container mt-5">
-    <div className="offset-md-2">
-      <form className="card m-5 p-5 col-md-8 " onSubmit={register}>
-        <div className="mb-3 text-center">
-          <h2>Créer un compte</h2>
-        </div>
-        <div className="form-check mb-3">
-          <span>Je suis :</span>
-          <input
-            className="form-check-input ml-4"
-            type="radio"
-            name="gridRadios"
-            id="gridRadios1"
-            value="false"
-            onChange={(e) => handleStatus("Student")}
-          />
-          <label className="ml-5 form-check-label" htmlFor="gridRadios1">
-            Etudiant
-          </label>
-          <input
-            className="form-check-input ml-4"
-            type="radio"
-            name="gridRadios"
-            id="gridRadios2"
-            value="true"
-            onChange={(e) => handleStatus("Teacher")}
-          />
-          <label className="ml-5 form-check-label" htmlFor="gridRadios2">
-            Enseignant
-          </label>
-          <input
-            className="form-check-input ml-4"
-            type="radio"
-            name="gridRadios"
-            id="gridRadios2"
-            value="true"
-            onChange={(e) => handleStatus("Admin")}
-          />
-          <label className="ml-5 form-check-label" htmlFor="gridRadios2">
-            Administrateur
-          </label>
+      <div className="offset-md-2">
+        <form className="card m-5 p-5 col-md-8 " onSubmit={register}>
+          <div className="mb-3 text-center">
+            <h2>Créer un compte</h2>
+          </div>
+          <div className="form-check mb-3">
+            <span>Je suis :</span>
+            <input
+              className="form-check-input ml-4"
+              type="radio"
+              name="gridRadios"
+              id="gridRadios1"
+              value="false"
+              onChange={(e) => handleStatus("Student")}
+            />
+            <label className="ml-5 form-check-label" htmlFor="gridRadios1">
+              Etudiant
+            </label>
+            <input
+              className="form-check-input ml-4"
+              type="radio"
+              name="gridRadios"
+              id="gridRadios2"
+              value="true"
+              onChange={(e) => handleStatus("Teacher")}
+            />
+            <label className="ml-5 form-check-label" htmlFor="gridRadios2">
+              Enseignant
+            </label>
+            <input
+              className="form-check-input ml-4"
+              type="radio"
+              name="gridRadios"
+              id="gridRadios2"
+              value="true"
+              onChange={(e) => handleStatus("Admin")}
+            />
+            <label className="ml-5 form-check-label" htmlFor="gridRadios2">
+              Administrateur
+            </label>
           </div>
 
           <div className="form-group">
