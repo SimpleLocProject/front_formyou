@@ -1,50 +1,56 @@
 import React, { useState, useEffect } from "react";
 import CoursePreview from "./../CoursePreview";
-import { fakeCourses } from "./../../../fakecontent/courses";
 import CourseSearch from "./../CourseSearch";
 import { fetchCourses } from "./../../../service/courseApi";
+import { useDispatch } from "react-redux";
+import { displayError } from "../../../redux/middlewares/flashMiddleware";
 
 const CourseIndex = () => {
-  const [courselist, SetCourseList] = useState();
-  const [filteredcourselist, SetFilteredCourseList] = useState();
-  const [catlist, SetCatList] = useState();
+  const [courselist, setCourseList] = useState();
+  const [filteredcourselist, setFilteredCourseList] = useState();
+  const [catlist, setCatList] = useState();
+
+  const dispatch = useDispatch()
 
   const ShortID = require("shortid");
 
   useEffect(() => {
     const getCourses = async () => {
       const courses = await fetchCourses();
-      SetCourseList(courses);
+      if (!courses) {
+        dispatch(displayError("Aucun cours de disponible"))
+        return false
+      }
+      setCourseList(courses);
 
       let courseCategories = [];
-      if (courses !== undefined) {
-        courses.forEach((course) => {
-          course.categories.forEach((cat) => {
-            courseCategories.some((element) => element.id === cat.id)
-              ? console.log("cat is already listed")
-              : courseCategories.push(cat);
-          });
+
+      courses.forEach((course) => {
+        course.categories.forEach((cat) => {
+          courseCategories.some((element) => element.id === cat.id)
+            ? console.log("cat is already listed")
+            : courseCategories.push(cat);
         });
-      }
-      SetCatList(courseCategories);
+      });
+
+      setCatList(courseCategories);
     };
     getCourses();
-  }, []);
+  }, [dispatch]);
 
   const search = (value) => {
     const filter = courselist.filter(
       (course) =>
         course.title.includes(value) || course.description.includes(value)
     );
-    SetFilteredCourseList(filter);
+    setFilteredCourseList(filter);
   };
 
   const handleSelect = (value) => {
-    console.log(value);
     const select = courselist.filter((course) =>
       course.categories.some((cat) => cat.name === value)
     );
-    SetFilteredCourseList(select);
+    setFilteredCourseList(select);
   };
 
   let courses;

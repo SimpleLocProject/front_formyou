@@ -1,7 +1,6 @@
 import React from "react";
 import CourseIndex from "./../components/Courses/CourseIndex";
 import Jumbotron from "./../components/Jumbotron";
-import { useSelector } from "react-redux";
 
 const Home = () => {
 

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
-import { Cookies } from "js-cookie";
-import { fetchCourse } from "./../service/courseApi";
+
 const Course = () => {
   const { course_id } = useParams();
 

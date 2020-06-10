@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Redirect,
 } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -28,18 +26,22 @@ import Course from "./pages/Course";
 import Footer from "./components/Footer";
 
 const App = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const [loadReady, setLoadReady] = useState(false)
+  const user = useSelector((state) => state.auth.user);
   const displayFlash = useSelector((state) => state.flash.display);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = Cookies.get("token");
-
-    if (token) {
-      dispatch(fetchToLoadUser(token))
+    const landing = async () => {
+      const token = Cookies.get("token");
+      if (!user && token) {
+        await dispatch(fetchToLoadUser(token))
+      }
+      setLoadReady(true)
     }
-  }, [dispatch]);
+    landing()
+  }, [dispatch, user]);
 
 
   return (
@@ -47,7 +49,7 @@ const App = () => {
       {displayFlash && <FlashMessage />}
       <Navbar />
       <Switch>
-        <HomeRoute exact path="/" component={Home} />
+        {loadReady && <HomeRoute exact path="/" component={Home} />}
         <UnAuthRoute path="/login" component={Login} />
         <UnAuthRoute path="/signup" component={Register} />
         <UnAuthRoute path="/course/:course_id" component={Course} />
@@ -55,9 +57,8 @@ const App = () => {
         <AdminRoute path="/admin" component={AdminBoard} />
         <TeacherRoute path="/teacher" component={TeacherBoard} />
         <StudentRoute path="/student" component={StudentBoard} />
-        <Route path="*" component={() => <div>ERREUR 404</div>} />
       </Switch>
-
+      <Footer />
     </Router>
   );
 };

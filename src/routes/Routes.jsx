@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
-  BrowserRouter,
   Route,
   Redirect,
 } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const UnAuthRoute = ({ component: Component, ...rest }) => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
@@ -47,20 +46,14 @@ export const HomeRoute = ({ component: Component, ...rest }) => {
   const roadToHome = (props) => {
     let road
     if (canAccess && isTeacher && isAuthenticated && !isAdmin) {
-      console.log("teacher");
-
       road = <Redirect to={{ pathname: "/teacher" }} />
     } else if (canAccess && isAdmin && isAuthenticated && !isTeacher) {
-      console.log("admin");
       road = <Redirect to={{ pathname: "/admin" }} />
     } else if (canAccess && isAuthenticated && !isTeacher && !isAdmin) {
       road = <Redirect to={{ pathname: "/student" }} />
-      console.log("student");
     } else {
       road = <Component {...props} />
-      console.log("home");
     }
-    console.log(road);
 
     return road
   }
@@ -68,10 +61,7 @@ export const HomeRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) => {
-        console.log(roadToHome(props))
-        return roadToHome(props)
-      }
+      render={(props) => (roadToHome(props))
       }
     />
   )

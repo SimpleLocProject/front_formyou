@@ -7,6 +7,7 @@ export const fetchCourses = async () => {
         "Content-Type": "application/json",
       },
     });
+    console.log(response)
     if (!response.ok) {
       throw Error(response.statusText);
     }
@@ -15,7 +16,6 @@ export const fetchCourses = async () => {
     return courses;
   } catch (error) {
     console.log(error);
-    alert("nous ne touvons pas de cours");
     return false;
   }
 };
