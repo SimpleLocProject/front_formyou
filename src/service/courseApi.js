@@ -7,7 +7,7 @@ export const fetchCourses = async () => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response)
+    console.log(response);
     if (!response.ok) {
       throw Error(response.statusText);
     }
@@ -23,12 +23,15 @@ export const fetchCourses = async () => {
 export const fetchCourse = async (token, course_id) => {
   const API_URL = process.env.REACT_APP_API_URL;
   try {
-    const response = await fetch(`${API_URL}/api/v1/courses/${course_id}`, {
-      method: "get",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${API_URL}/api/v1/courses/${course_id}/sessions`,
+      {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (!response.ok) {
       throw Error(response.statusText);
     }
