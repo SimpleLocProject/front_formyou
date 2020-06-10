@@ -17,13 +17,15 @@ const CourseIndex = () => {
       SetCourseList(courses);
 
       let courseCategories = [];
-      courses.forEach((course) => {
-        course.categories.forEach((cat) => {
-          courseCategories.some((element) => element.id === cat.id)
-            ? console.log("cat is already listed")
-            : courseCategories.push(cat);
+      if (courses !== undefined) {
+        courses.forEach((course) => {
+          course.categories.forEach((cat) => {
+            courseCategories.some((element) => element.id === cat.id)
+              ? console.log("cat is already listed")
+              : courseCategories.push(cat);
+          });
         });
-      });
+      }
       SetCatList(courseCategories);
     };
     getCourses();
