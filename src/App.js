@@ -10,7 +10,6 @@ import Cookies from "js-cookie";
 
 import { UnAuthRoute, AuthRoute, HomeRoute, AdminRoute, TeacherRoute, StudentRoute } from "./routes/Routes";
 
-import "./App.css"
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
