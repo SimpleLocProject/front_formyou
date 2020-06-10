@@ -38,6 +38,7 @@ const CourseIndex = () => {
   };
 
   const handleSelect = (value) => {
+    console.log(value);
     const select = courselist.filter((course) =>
       course.categories.some((cat) => cat.name === value)
     );
