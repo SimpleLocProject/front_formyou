@@ -9,15 +9,22 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Cookies from "js-cookie";
 
-import "./App.css";
+
+import { UnAuthRoute, AuthRoute, HomeRoute, AdminRoute, TeacherRoute, StudentRoute } from "./routes/Routes";
+
+import "./App.css"
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+
+import { fetchToLoadUser } from './redux/middlewares/authMiddleware';
+import FlashMessage from './components/FlashMessage';
+import AdminBoard from "./pages/AdminBoard";
+import TeacherBoard from "./pages/TeacherBoard";
+import StudentBoard from "./pages/StudentBoard";
 import Course from "./pages/Course";
-import { fetchToLoadUser } from "./redux/middlewares/authMiddleware";
-import FlashMessage from "./components/FlashMessage";
 import Footer from "./components/Footer";
 
 const App = () => {
@@ -30,50 +37,27 @@ const App = () => {
     const token = Cookies.get("token");
 
     if (token) {
-      console.log(token);
-      dispatch(fetchToLoadUser(token));
+      dispatch(fetchToLoadUser(token))
     }
   }, [dispatch]);
 
-  const UnAuthRoute = ({ component: Component, ...rest }) => (
-    <Route
-      {...rest}
-      render={(props) =>
-        isAuthenticated ? (
-          <Redirect to={{ pathname: "/" }} />
-        ) : (
-          <Component {...props} />
-        )
-      }
-    />
-  );
-
-  const AuthRoute = ({ component: Component, ...rest }) => (
-    <Route
-      {...rest}
-      render={(props) =>
-        isAuthenticated ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to={{ pathname: "/login" }} />
-        )
-      }
-    />
-  );
 
   return (
     <Router basename={process.env.PUBLIC_URL}>
       {displayFlash && <FlashMessage />}
       <Navbar />
       <Switch>
-        <Route exact path="/" component={Home} />
+        <HomeRoute exact path="/" component={Home} />
         <UnAuthRoute path="/login" component={Login} />
         <UnAuthRoute path="/signup" component={Register} />
         <UnAuthRoute path="/course/:course_id" component={Course} />
         <AuthRoute path="/profile" component={Profile} />
-        <Route path="/" component={() => <div>ERREUR 404</div>} />
+        <AdminRoute path="/admin" component={AdminBoard} />
+        <TeacherRoute path="/teacher" component={TeacherBoard} />
+        <StudentRoute path="/student" component={StudentBoard} />
+        <Route path="*" component={() => <div>ERREUR 404</div>} />
       </Switch>
-      <Footer />
+
     </Router>
   );
 };
