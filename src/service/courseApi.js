@@ -28,6 +28,7 @@ export const fetchCourse = async (token, course_id) => {
       {
         method: "get",
         headers: {
+          Authorization: "Bearer " + token,
           "Content-Type": "application/json",
         },
       }
@@ -35,10 +36,11 @@ export const fetchCourse = async (token, course_id) => {
     if (!response.ok) {
       throw Error(response.statusText);
     }
-    const course = await response.json();
-    return course;
+    const sessions = await response.json();
+    console.log(sessions);
+    return sessions;
   } catch (error) {
     console.log(error);
-    alert("nous ne touvons pas ce cours");
+    return false;
   }
 };
