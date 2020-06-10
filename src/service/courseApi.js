@@ -7,12 +7,10 @@ export const fetchCourses = async () => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response);
     if (!response.ok) {
       throw Error(response.statusText);
     }
     const courses = await response.json();
-    console.log(courses);
     return courses;
   } catch (error) {
     console.log(error);
@@ -20,7 +18,7 @@ export const fetchCourses = async () => {
   }
 };
 
-export const fetchCourse = async (token, course_id) => {
+export const fetchCourse = async (course_id) => {
   const API_URL = process.env.REACT_APP_API_URL;
   try {
     const response = await fetch(
@@ -28,7 +26,7 @@ export const fetchCourse = async (token, course_id) => {
       {
         method: "get",
         headers: {
-          Authorization: "Bearer " + token,
+          // Authorization: "Bearer " + token,
           "Content-Type": "application/json",
         },
       }
@@ -37,7 +35,6 @@ export const fetchCourse = async (token, course_id) => {
       throw Error(response.statusText);
     }
     const sessions = await response.json();
-    console.log(sessions);
     return sessions;
   } catch (error) {
     console.log(error);
