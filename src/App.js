@@ -9,31 +9,31 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Cookies from "js-cookie";
 
-import "./App.css"
+import "./App.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-import { fetchToLoadUser } from './redux/middlewares/authMiddleware';
-import FlashMessage from './components/FlashMessage';
+import Course from "./pages/Course";
+import { fetchToLoadUser } from "./redux/middlewares/authMiddleware";
+import FlashMessage from "./components/FlashMessage";
 import Footer from "./components/Footer";
 
-
 const App = () => {
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-  const displayFlash = useSelector(state => state.flash.display)
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const displayFlash = useSelector((state) => state.flash.display);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = Cookies.get('token')
+    const token = Cookies.get("token");
 
     if (token) {
-      console.log(token)
-      dispatch(fetchToLoadUser(token))
+      console.log(token);
+      dispatch(fetchToLoadUser(token));
     }
-  }, [dispatch])
+  }, [dispatch]);
 
   const UnAuthRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -42,8 +42,8 @@ const App = () => {
         isAuthenticated ? (
           <Redirect to={{ pathname: "/" }} />
         ) : (
-            <Component {...props} />
-          )
+          <Component {...props} />
+        )
       }
     />
   );
@@ -55,8 +55,8 @@ const App = () => {
         isAuthenticated ? (
           <Component {...props} />
         ) : (
-            <Redirect to={{ pathname: "/login" }} />
-          )
+          <Redirect to={{ pathname: "/login" }} />
+        )
       }
     />
   );
@@ -69,6 +69,7 @@ const App = () => {
         <Route exact path="/" component={Home} />
         <UnAuthRoute path="/login" component={Login} />
         <UnAuthRoute path="/signup" component={Register} />
+        <UnAuthRoute path="/course/:course_id" component={Course} />
         <AuthRoute path="/profile" component={Profile} />
         <Route path="/" component={() => <div>ERREUR 404</div>} />
       </Switch>
