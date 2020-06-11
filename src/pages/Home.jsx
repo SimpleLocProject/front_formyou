@@ -1,6 +1,6 @@
 import React from "react";
 import CourseIndex from "./../components/Courses/CourseIndex";
-import Jumbotron from "./../components/Jumbotron";
+import Jumbotron from "./../components/Layout/Jumbotron";
 
 const Home = () => {
 

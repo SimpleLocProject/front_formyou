@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import CoursePreview from "./../CoursePreview";
-import CourseSearch from "./../CourseSearch";
-import { fetchCourses } from "./../../../service/courseApi";
+import CoursePreview from "./CoursePreview";
+import CourseSearch from "./CourseSearch";
+import { fetchCourses } from "../../service/courseApi";
 import { useDispatch } from "react-redux";
-import { displayError } from "../../../redux/middlewares/flashMiddleware";
+import { displayError } from "../../redux/middlewares/flashMiddleware";
 
 const CourseIndex = () => {
   const [courselist, setCourseList] = useState();
   const [filteredcourselist, setFilteredCourseList] = useState();
   const [catlist, setCatList] = useState();
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const ShortID = require("shortid");
 
@@ -18,8 +18,8 @@ const CourseIndex = () => {
     const getCourses = async () => {
       const courses = await fetchCourses();
       if (!courses) {
-        dispatch(displayError("Aucun cours de disponible"))
-        return false
+        dispatch(displayError("Aucun cours de disponible"));
+        return false;
       }
       setCourseList(courses);
 
@@ -27,9 +27,9 @@ const CourseIndex = () => {
 
       courses.forEach((course) => {
         course.categories.forEach((cat) => {
-          courseCategories.some((element) => element.id === cat.id)
-            ? console.log("cat is already listed")
-            : courseCategories.push(cat);
+          if (!courseCategories.some((element) => element.id === cat.id)) {
+            courseCategories.push(cat);
+          }
         });
       });
 
