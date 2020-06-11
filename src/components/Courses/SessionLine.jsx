@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   createUserSession,
   destroyUserSession,
-} from "./../service/usersessionsApi";
-import { displayError } from "../redux/middlewares/flashMiddleware";
+} from "../../service/usersessionsApi";
+import { displayError } from "../../redux/middlewares/flashMiddleware";
 
 const SessionLine = ({ subscribed, session }) => {
   const [participate, setParticipate] = useState(subscribed);
@@ -60,10 +60,10 @@ const SessionLine = ({ subscribed, session }) => {
               Annuler
             </button>
           ) : (
-            <button className="btn btn-info" onClick={subscribe}>
-              Participer
-            </button>
-          )}
+              <button className="btn btn-info" onClick={subscribe}>
+                Participer
+              </button>
+            )}
         </td>
       )}
     </tr>

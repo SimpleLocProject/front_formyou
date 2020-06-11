@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSessions } from "../service/sessionsApi";
 import { displayError } from "../redux/middlewares/flashMiddleware";
-import Calendar from "../components/Calendar";
+import Calendar from "../components/Calendar/Calendar";
 
 const TeacherBoard = () => {
   const user = useSelector(state => state.auth.user);
@@ -19,7 +19,8 @@ const TeacherBoard = () => {
         dispatch(displayError("Aucun cours de disponible"))
         return false
       }
-      setSessions(loadSessions);
+      const sessionsFiltred = loadSessions.filter((session) => session.teacher_id === user.id)
+      setSessions(sessionsFiltred);
     };
     getSessions();
   }, [dispatch])

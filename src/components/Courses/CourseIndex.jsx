@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import CoursePreview from "./../CoursePreview";
-import CourseSearch from "./../CourseSearch";
-import { fetchCourses } from "./../../../service/courseApi";
+import CoursePreview from "./CoursePreview";
+import CourseSearch from "./CourseSearch";
+import { fetchCourses } from "../../service/courseApi";
 import { useDispatch } from "react-redux";
-import { displayError } from "../../../redux/middlewares/flashMiddleware";
+import { displayError } from "../../redux/middlewares/flashMiddleware";
 
 const CourseIndex = () => {
   const [courselist, setCourseList] = useState();

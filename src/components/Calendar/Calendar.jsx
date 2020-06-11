@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-
-import Modal from "../components/Modal";
+import Modal from "./Modal";
 
 import $ from "jquery"
 import FullCalendar from '@fullcalendar/react'
@@ -17,8 +16,6 @@ const Calendar = ({ sessions }) => {
     availables_seats: "",
     course_id: "",
     classroom_id: "",
-    created_at: "",
-    updated_at: "",
   })
 
   const handleDateClick = (arg) => { // bind with an arrow function
@@ -33,8 +30,6 @@ const Calendar = ({ sessions }) => {
       availables_seats: e.event.extendedProps.availables_seats,
       course_id: e.event.extendedProps.course_id,
       classroom_id: e.event.extendedProps.classroom_id,
-      created_at: e.event.extendedProps.created_at,
-      updated_at: e.event.extendedProps.updated_at,
     })
     $(".bd-example-modal-xl").modal()
   }
@@ -56,7 +51,6 @@ const Calendar = ({ sessions }) => {
             return {
               //display event props on calendar
               id: session.id,
-              resourceIds: [session.id],
               title: session.course_id,
               date: session.begin_date,
               //additionnal data for modal

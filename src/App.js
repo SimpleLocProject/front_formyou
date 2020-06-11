@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { fetchToLoadUser } from "./redux/middlewares/authMiddleware";
 
 import Cookies from "js-cookie";
 
@@ -13,19 +14,17 @@ import {
   StudentRoute,
 } from "./routes/Routes";
 
+import FlashMessage from "./components/Layout/FlashMessage";
+import Navbar from "./components/Layout/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Navbar from "./components/Navbar";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-
-import { fetchToLoadUser } from "./redux/middlewares/authMiddleware";
-import FlashMessage from "./components/FlashMessage";
 import AdminBoard from "./pages/AdminBoard";
 import TeacherBoard from "./pages/TeacherBoard";
 import StudentBoard from "./pages/StudentBoard";
 import Course from "./pages/Course";
-import Footer from "./components/Footer";
+import Footer from "./components/Layout/Footer";
 
 const App = () => {
   const [loadReady, setLoadReady] = useState(false);

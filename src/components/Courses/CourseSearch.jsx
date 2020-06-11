@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CourseSearch = ({ search, catlist, handleSelect }) => {
   const [keyword, SetKeyword] = useState();
-  const ShortID = require("shortid");
 
   const handleSearch = (value) => {
     SetKeyword(value);

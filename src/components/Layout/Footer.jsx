@@ -12,16 +12,11 @@ const Footer = () => {
           <div className="flex-center">
 
             <FontAwesomeIcon icon={['fab', 'facebook']} size="2x" className="mx-4" />
-
             <FontAwesomeIcon icon={['fab', 'twitter']} size="2x" className="mx-4" />
-
             <FontAwesomeIcon icon={['fab', 'google-plus']} size="2x" className="mx-4" />
-
-            <FontAwesomeIcon icon={['fab', 'linkedin']} size="2x" className="mx-4" />
-
+            <FontAwesomeIcon icon={['fab', 'linkedin-in']} size="2x" className="mx-4" />
             <FontAwesomeIcon icon={['fab', 'instagram']} size="2x" className="mx-4" />
-
-            <FontAwesomeIcon icon={['fab', 'pinterest']} size="2x" className="mx-4" />
+            <FontAwesomeIcon icon={['fab', 'ubuntu']} size="2x" className="mx-4" />
 
           </div>
         </div>

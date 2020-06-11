@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { fetchCourse } from "./../service/courseApi";
 import { useDispatch } from "react-redux";
 import { displayError } from "./../redux/middlewares/flashMiddleware";
-import SessionLine from "./../components/SessionLine";
+import SessionLine from "./../components/Courses/SessionLine";
 const Course = () => {
   const { course_id } = useParams();
   const [sessions, setSessions] = useState([]);
@@ -55,12 +55,12 @@ const Course = () => {
                     session={session}
                   />
                 ) : (
-                  <SessionLine
-                    subscribed={false}
-                    key={session.id}
-                    session={session}
-                  />
-                )
+                    <SessionLine
+                      subscribed={false}
+                      key={session.id}
+                      session={session}
+                    />
+                  )
               )}
           </tbody>
         </table>

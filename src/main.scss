@@ -1,7 +1,6 @@
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
 
-
 * {
   margin: 0;
   padding: 0;
@@ -68,4 +67,9 @@ text-decoration: none;
   color: transparent;
 }
 
-
+.alert {
+  z-index: 9999;
+  margin-top: 3em;
+  position: absolute;
+  width: 100%;
+}
