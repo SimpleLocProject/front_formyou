@@ -1,3 +1,24 @@
+export const getUserSessions = async () => {
+  const API_URL = process.env.REACT_APP_API_URL;
+  try {
+    const response = await fetch(`${API_URL}/api/v1/usersessions`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response)
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    const userSessions = await response.json();
+    return userSessions;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 export const createUserSession = async (session_id, user_id, token) => {
   console.log(session_id, user_id, token);
   const API_URL = process.env.REACT_APP_API_URL;
