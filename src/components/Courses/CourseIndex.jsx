@@ -4,11 +4,14 @@ import CourseSearch from "./CourseSearch";
 import { fetchCourses } from "../../service/courseApi";
 import { useDispatch } from "react-redux";
 import { displayError } from "../../redux/middlewares/flashMiddleware";
+import Calendar from "./../Calendar/Calendar";
 
 const CourseIndex = () => {
   const [courselist, setCourseList] = useState();
-  const [filteredcourselist, setFilteredCourseList] = useState();
+  const [filteredcourselist, setFilteredCourseList] = useState([]);
   const [catlist, setCatList] = useState();
+  const [sessionlist, setSessionList] = useState([]);
+  const [filteredsessionlist, setFilteredSessionList] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -22,6 +25,14 @@ const CourseIndex = () => {
         return false;
       }
       setCourseList(courses);
+
+      let sessionfetch = [];
+      courses.forEach((course) => {
+        course.sessions.forEach((session) => {
+          sessionfetch.push(session);
+        });
+      });
+      setSessionList(sessionfetch);
 
       let courseCategories = [];
 
@@ -44,6 +55,14 @@ const CourseIndex = () => {
         course.title.includes(value) || course.description.includes(value)
     );
     setFilteredCourseList(filter);
+    setFilteredSessionList([]);
+    let sessionselect = [];
+    filter.forEach((course) => {
+      course.sessions.forEach((session) => {
+        sessionselect.push(session);
+      });
+    });
+    setFilteredSessionList(sessionselect);
   };
 
   const handleSelect = (value) => {
@@ -51,12 +70,26 @@ const CourseIndex = () => {
       course.categories.some((cat) => cat.name === value)
     );
     setFilteredCourseList(select);
+
+    setFilteredSessionList([]);
+    let sessionselect = [];
+    select.forEach((course) => {
+      course.sessions.forEach((session) => {
+        sessionselect.push(session);
+      });
+    });
+    setFilteredSessionList(sessionselect);
   };
 
   let courses;
-  filteredcourselist === undefined
+  filteredcourselist.length <= 0
     ? (courses = courselist)
     : (courses = filteredcourselist);
+
+  let sessions;
+  filteredsessionlist.length <= 0
+    ? (sessions = sessionlist)
+    : (sessions = filteredsessionlist);
 
   return (
     <>
@@ -71,16 +104,10 @@ const CourseIndex = () => {
       <div className="row mt-3 mb-3">
         {courselist &&
           courses.map((course) => (
-            <CoursePreview key={ShortID.generate()} course={course} />
+            <CoursePreview key={course.id} course={course} />
           ))}
       </div>
-      <h2>Mes formations</h2>
-      <div className="row mt-3 mb-3">
-        {courselist &&
-          courselist.map((course) => (
-            <CoursePreview key={ShortID.generate()} course={course} />
-          ))}
-      </div>
+      <Calendar sessions={sessions} />
     </>
   );
 };
