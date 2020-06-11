@@ -1,6 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Modal = ({ course, seats, date, classroom }) => {
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  const canAccess = useSelector(state => state.auth.canAccess)
+  const isTeacher = useSelector(state => state.auth.isTeacher)
+  const isAdmin = useSelector(state => state.auth.isAdmin)
 
   return (
     <>
@@ -17,6 +22,8 @@ const Modal = ({ course, seats, date, classroom }) => {
               <p>date: {date}</p>
               <p>salle: {classroom}</p>
               <p>place restante: {seats}</p>
+              {(isTeacher || isAdmin) && <p>liste des élèves + note (CRUD) if date inférieur date.today</p>}
+              {(!isTeacher && !isAdmin) && <p>s'inscrire s'il reste des places if date sup ou egal date.today OU note if canAccess and a participé and date inférieur date.today </p>}
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
