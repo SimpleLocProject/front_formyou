@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 const CoursePreview = ({ course }) => {
   const ShortID = require("shortid");
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   return (
     <>
       <div className="card col-md-3 m-3">
@@ -14,9 +15,18 @@ const CoursePreview = ({ course }) => {
               <span className="badge badge-info">{cat.name}</span>
             </p>
           ))}
-          <Link className="btn btn-primary" to={"/course/" + course.id}>
-            Detail
-          </Link>
+          {isAuthenticated ? (
+            <Link
+              className="btn btn-primary"
+              to={"/student/course/" + course.id}
+            >
+              Detail
+            </Link>
+          ) : (
+            <Link className="btn btn-primary" to="/login/">
+              Detail
+            </Link>
+          )}
         </div>
       </div>
     </>
