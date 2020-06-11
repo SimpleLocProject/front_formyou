@@ -6,6 +6,7 @@ import CourseSearch from "../components/Courses/CourseSearch";
 import { fetchCourses } from "../service/courseApi";
 import { displayError } from "../redux/middlewares/flashMiddleware";
 import Jumbotron from "./../components/Layout/Jumbotron";
+import { fetchSessions } from "../service/sessionsApi";
 
 const Home = () => {
   const [courselist, setCourseList] = useState();
@@ -25,14 +26,6 @@ const Home = () => {
       }
       setCourseList(courses);
 
-      let sessionfetch = [];
-      courses.forEach((course) => {
-        course.sessions.forEach((session) => {
-          sessionfetch.push(session);
-        });
-      });
-      setSessionList(sessionfetch);
-
       let courseCategories = [];
 
       courses.forEach((course) => {
@@ -47,6 +40,17 @@ const Home = () => {
     };
     getCourses();
   }, [dispatch]);
+
+  useEffect(() => {
+    const getSessions = async () => {
+      const loadSessions = await fetchSessions();
+      if (!loadSessions) {
+        return false
+      }
+      setSessionList(loadSessions);
+    };
+    getSessions();
+  }, [dispatch])
 
   const search = (value) => {
     const filter = courselist.filter(
@@ -93,7 +97,7 @@ const Home = () => {
   return (
     <>
       <Jumbotron />
-      <div className="container mt-5">
+      <div className="container my-5 text-center">
         <h2>Toutes les formations</h2>
         {catlist && (
           <CourseSearch
@@ -102,13 +106,16 @@ const Home = () => {
             search={search}
           />
         )}
-        <div className="row mt-3 mb-3">
+        <div className="row my-3 mb-3 d-flex justify-content-center">
           {courselist &&
             courses.map((course) => (
               <CoursePreview key={course.id} course={course} />
             ))}
         </div>
-        <Calendar sessions={sessions} />
+        <hr />
+        <h2>Calendrier des formations</h2>
+        <Calendar sessions={sessionlist} />
+        <hr />
       </div>
     </>
   );

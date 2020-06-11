@@ -9,7 +9,7 @@ const TeacherBoard = () => {
   const [sessions, setSessions] = useState([])
 
   const dispatch = useDispatch()
-  const { id, email } = user
+  const { id, email, first_name, last_name } = user;
 
   useEffect(() => {
     const getSessions = async () => {
@@ -30,6 +30,8 @@ const TeacherBoard = () => {
       <div className="container mt-5">
         <h1>Welcome on teacher board.</h1>
         <p>id : {id}</p>
+        <p>prenom : {first_name}</p>
+        <p>nom : {last_name}</p>
         <p>mail : {email}</p>
         <Calendar sessions={sessions} />
       </div>

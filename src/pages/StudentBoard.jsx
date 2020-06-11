@@ -5,10 +5,11 @@ import CoursePreview from "../components/Courses/CoursePreview";
 import CourseSearch from "../components/Courses/CourseSearch";
 import { fetchCourses } from "../service/courseApi";
 import { displayError } from "../redux/middlewares/flashMiddleware";
+import { fetchSessions } from "../service/sessionsApi";
 
 const StudentBoard = () => {
   const user = useSelector((state) => state.auth.user);
-  const { id, email } = user;
+  const { id, email, first_name, last_name } = user;
   const [courselist, setCourseList] = useState();
   const [filteredcourselist, setFilteredCourseList] = useState([]);
   const [catlist, setCatList] = useState();
@@ -26,14 +27,6 @@ const StudentBoard = () => {
       }
       setCourseList(courses);
 
-      let sessionfetch = [];
-      courses.forEach((course) => {
-        course.sessions.forEach((session) => {
-          sessionfetch.push(session);
-        });
-      });
-      setSessionList(sessionfetch);
-
       let courseCategories = [];
 
       courses.forEach((course) => {
@@ -48,6 +41,26 @@ const StudentBoard = () => {
     };
     getCourses();
   }, [dispatch]);
+
+  useEffect(() => {
+    const getSessions = async () => {
+      const loadSessions = await fetchSessions();
+      if (!loadSessions) {
+        return false
+      }
+      const first = loadSessions.filter((session) => {
+        for (var i = 0; i < session.usersessions.length; i++) {
+          if (session.usersessions[i].student_id === user.id) {
+            return true;
+          }
+        }
+      })
+      console.log("zeub")
+      console.log(first)
+      setSessionList(first);
+    };
+    getSessions();
+  }, [dispatch])
 
   const search = (value) => {
     const filter = courselist.filter(
@@ -95,8 +108,13 @@ const StudentBoard = () => {
     <div className="container mt-5">
       <h1>Welcome on student board.</h1>
       <p>id : {id}</p>
+      <p>prenom : {first_name}</p>
+      <p>nom : {last_name}</p>
       <p>mail : {email}</p>
 
+      <h2>Votre Agenda</h2>
+      <Calendar sessions={sessions} />
+      <hr />
       <h2>Toutes les formations</h2>
       {catlist && (
         <CourseSearch
@@ -105,13 +123,13 @@ const StudentBoard = () => {
           search={search}
         />
       )}
-      <div className="row mt-3 mb-3">
+      <div className="row my-3 mb-3 d-flex justify-content-center">
         {courselist &&
           courses.map((course) => (
             <CoursePreview key={course.id} course={course} />
           ))}
       </div>
-      <Calendar sessions={sessions} />
+      <hr />
     </div>
   );
 };

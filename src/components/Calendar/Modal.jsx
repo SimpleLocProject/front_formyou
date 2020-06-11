@@ -5,8 +5,6 @@ import { displayInfo } from "../../redux/middlewares/flashMiddleware";
 
 
 const Modal = ({ session, course, seats, date, classroom }) => {
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-  const canAccess = useSelector(state => state.auth.canAccess)
   const isTeacher = useSelector(state => state.auth.isTeacher)
   const isAdmin = useSelector(state => state.auth.isAdmin)
   const [sessionStudents, setSessionStudents] = useState([])
@@ -15,7 +13,6 @@ const Modal = ({ session, course, seats, date, classroom }) => {
 
   useEffect(() => {
     const getStudents = async () => {
-      //fetchUserSessions(user) ready to use, waiting for backend
       const loadUseressions = await getUserSessions();
       if (!loadUseressions) {
         dispatch(displayInfo("Aucun élèves pour cette session de disponible"))
@@ -42,15 +39,15 @@ const Modal = ({ session, course, seats, date, classroom }) => {
               <p>date: {date}</p>
               <p>salle: {classroom}</p>
               <p>place restante: {seats}</p>
-              <p>liste des élèves + note (CRUD) if date inférieur date.today</p>
+              {(isTeacher || isAdmin) && <p>TODO-TEACHER : CRUD note if date inférieur date.today</p>}
               {(isTeacher || isAdmin) &&
                 sessionStudents.map((student) => {
                   return (
-                    <li key={student.student.id}>{student.student.first_name} {student.student.last_name} || note: {student.note}</li>
+                    <li key={student.student.id}>{student.student.first_name} {student.student.last_name} || note: {student.note} || email: {student.student.email}</li>
                   )
                 })
               }
-              {(!isTeacher && !isAdmin) && <p>s'inscrire s'il reste des places if date sup ou egal date.today OU note if canAccess and a participé and date inférieur date.today </p>}
+              {(!isTeacher && !isAdmin) && <p>TODO-STUDENT : s'inscrire s'il reste des places if date sup ou egal date.today OU note if canAccess and a participé and date inférieur date.today </p>}
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
