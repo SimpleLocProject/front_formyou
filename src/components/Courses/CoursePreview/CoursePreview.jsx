@@ -23,7 +23,7 @@ const CoursePreview = ({ course }) => {
               Detail
             </Link>
           ) : (
-            <Link className="btn btn-primary" to={"/course/" + course.id}>
+            <Link className="btn btn-primary" to="/login/">
               Detail
             </Link>
           )}
