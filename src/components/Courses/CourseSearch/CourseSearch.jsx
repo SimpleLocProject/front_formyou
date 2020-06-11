@@ -18,9 +18,9 @@ const CourseSearch = ({ search, catlist, handleSelect }) => {
             onChange={(e) => handleSelect(e.target.value)}
             className="form-control form-control-lg"
           >
-            <option value="all">Toutes les formations</option>
+            <option>Toutes les catégorie</option>
             {catlist.map((cat) => (
-              <option value={cat.name} key={ShortID.generate()}>
+              <option value={cat.name} key={cat.id}>
                 {cat.name}
               </option>
             ))}
