@@ -4,7 +4,7 @@ import {
   createUserSession,
   destroyUserSession,
 } from "../../service/usersessionsApi";
-import { displayError } from "../../redux/middlewares/flashMiddleware";
+import { displayError, displayInfo } from "../../redux/middlewares/flashMiddleware";
 
 const SessionLine = ({ subscribed, session }) => {
   const [participate, setParticipate] = useState(subscribed);
@@ -23,6 +23,7 @@ const SessionLine = ({ subscribed, session }) => {
       );
       return false;
     }
+    dispatch(displayInfo("Vous êtes maintenant inscrit à ce cours et pouvez le retrouver dans votre agenda"))
     setSubscriptions(subscriptions.concat(response));
     setParticipate(!participate);
   };
@@ -35,10 +36,11 @@ const SessionLine = ({ subscribed, session }) => {
     const response = await destroyUserSession(user_session[0], token);
     if (!response) {
       dispatch(
-        displayError("Vous devez être connecter pour vous inscrire à un cours")
+        displayError("Ce cours a été ajouté à votre agenda")
       );
       return false;
     }
+    dispatch(displayInfo("Ce cours a été retiré à votre agenda"))
     setSubscriptions(
       subscriptions.filter(
         (subscription) => subscription.id !== user_session[0].id
