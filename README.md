@@ -1,6 +1,6 @@
 # FormYou
 
-## Preview https://formyou-staging.herokuapp.com/
+## Preview https://formyou.herokuapp.com/
 
 # Fonctionne de pair avec l'API, bien suivre les commandes du readme SVP
 
