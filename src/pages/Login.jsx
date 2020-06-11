@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
-import { fetchToLogin } from "../redux/middlewares/authMiddleware"
+import { fetchToLogin } from "../redux/middlewares/authMiddleware";
 
 const Login = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -16,14 +16,14 @@ const Login = () => {
     const data = {
       user: {
         email: email,
-        password: password
-      }
-    }
-    e.preventDefault()
+        password: password,
+      },
+    };
+    e.preventDefault();
     if (await dispatch(fetchToLogin(data))) {
       history.push("/");
     }
-  }
+  };
 
   return (
     <div className="container mt-5">
@@ -60,7 +60,7 @@ const Login = () => {
                 <input
                   className="btn btn-primary btn-lg"
                   type="submit"
-                  value="Je m'inscris"
+                  value="Je me connecte"
                 />
               </div>
             </form>
