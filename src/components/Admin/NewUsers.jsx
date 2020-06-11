@@ -12,17 +12,17 @@ const NewUsers = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const getNewUsers = async () => {
-      const newUsers = await fetchNewUsers(token);
-      if (!newUsers) {
-        dispatch(displayError("Aucun nouvel utilisateur à modérer"))
-        return false
-      }
-      setNewUsersList(newUsers);
-    };
     getNewUsers();
   }, [dispatch]);
 
+  const getNewUsers = async () => {
+    const newUsers = await fetchNewUsers(token);
+    if (!newUsers) {
+      dispatch(displayError("Aucun nouvel utilisateur à modérer"))
+      return false
+    }
+    setNewUsersList(newUsers);
+  };
 
   const postUpdateUser = async (token, userId) => {
     const body = JSON.stringify({
@@ -36,6 +36,7 @@ const NewUsers = () => {
     }
     if(updateUser){
       dispatch(displaySuccess("L'utilisateur a bien été validé"))
+      getNewUsers()
     }
   };
 
@@ -47,6 +48,7 @@ const NewUsers = () => {
     }
     if(deleteUser){
       dispatch(displaySuccess("L'utilisateur a bien été supprimé"))
+      getNewUsers()
     }
   };
 
