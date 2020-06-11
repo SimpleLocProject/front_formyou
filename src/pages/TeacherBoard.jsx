@@ -19,7 +19,7 @@ const TeacherBoard = () => {
         dispatch(displayError("Aucun cours de disponible"))
         return false
       }
-      const sessionsFiltred = loadSessions.filter((session) => session.teacher_id === user.id)
+      const sessionsFiltred = loadSessions.filter((session) => session.course.teacher_id === user.id)
       setSessions(sessionsFiltred);
     };
     getSessions();

@@ -14,8 +14,8 @@ const Calendar = ({ sessions }) => {
     session_id: "",
     begin_date: "",
     availables_seats: "",
-    course_id: "",
-    classroom_id: "",
+    course: "",
+    classroom: "",
   })
 
   const handleDateClick = (arg) => { // bind with an arrow function
@@ -28,15 +28,15 @@ const Calendar = ({ sessions }) => {
       session_id: e.event.extendedProps.session_id,
       begin_date: e.event.extendedProps.begin_date,
       availables_seats: e.event.extendedProps.availables_seats,
-      course_id: e.event.extendedProps.course_id,
-      classroom_id: e.event.extendedProps.classroom_id,
+      course: e.event.extendedProps.course,
+      classroom: e.event.extendedProps.classroom,
     })
     $(".bd-example-modal-xl").modal()
   }
 
   return (
     <>
-      <Modal course={modal.course_id} seats={modal.availables_seats} date={modal.begin_date} classroom={modal.classroom_id} />
+      <Modal session={modal.session_id} course={modal.course} seats={modal.availables_seats} date={modal.begin_date} classroom={modal.classroom} />
       <FullCalendar
         defaultView="dayGridMonth"
         header={{
@@ -51,14 +51,14 @@ const Calendar = ({ sessions }) => {
             return {
               //display event props on calendar
               id: session.id,
-              title: session.course_id,
+              title: session.course.title,
               date: session.begin_date,
               //additionnal data for modal
               session_id: session.id,
               begin_date: session.begin_date,
               availables_seats: session.availables_seats,
-              course_id: session.course_id,
-              classroom_id: session.classroom_id,
+              course: session.course.title,
+              classroom: session.classroom_id,
             }
           })}
         eventClick={(e) => displayEvent(e)}

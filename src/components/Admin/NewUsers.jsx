@@ -34,7 +34,7 @@ const NewUsers = () => {
       dispatch(displayError("L'utilisateur n'a pas été validé"))
       return false
     }
-    if(updateUser){
+    if (updateUser) {
       dispatch(displaySuccess("L'utilisateur a bien été validé"))
       getNewUsers()
     }
@@ -46,7 +46,7 @@ const NewUsers = () => {
       dispatch(displayError("L'utilisateur n'a pas été supprimé"))
       return false
     }
-    if(deleteUser){
+    if (deleteUser) {
       dispatch(displaySuccess("L'utilisateur a bien été supprimé"))
       getNewUsers()
     }
@@ -56,23 +56,23 @@ const NewUsers = () => {
     <>
       <h2>Liste des utilisateurs à modérer</h2>
       {newUsersList ?
-       newUsersList.map((newUser)=> (
-        <div className="card col-md-4 m-2">
-        <div className="card-body">
-          <h5 className="card-title">{newUser.first_name}</h5>
-          <h5 className="card-title">{newUser.last_name}</h5>
-          <h5 className="card-title">{newUser.email}</h5>
-          <h5 className="card-title">Admin : {newUser.is_admin ? "Oui" : "Non"}</h5>
-          <h5 className="card-title">Professseur : {newUser.is_teacher ? "Oui" : "Non"}</h5>
-          <h5 className="card-title">Utilisateur validé : {newUser.can_access ? "Oui" : "Non"}</h5>
-          <button onClick={() => postUpdateUser(token, newUser.id)} className="btn btn-success m-2">
-            Valider cet utilisateur
+        newUsersList.map((newUser) => (
+          <div className="card col-md-4 m-2">
+            <div className="card-body">
+              <h5 className="card-title">{newUser.first_name}</h5>
+              <h5 className="card-title">{newUser.last_name}</h5>
+              <h5 className="card-title">{newUser.email}</h5>
+              <h5 className="card-title">Admin : {newUser.is_admin ? "Oui" : "Non"}</h5>
+              <h5 className="card-title">Professseur : {newUser.is_teacher ? "Oui" : "Non"}</h5>
+              <h5 className="card-title">Utilisateur validé : {newUser.can_access ? "Oui" : "Non"}</h5>
+              <button onClick={() => postUpdateUser(token, newUser.id)} className="btn btn-success m-2">
+                Valider cet utilisateur
           </button>
-          <button onClick={() => postDeleteUser(token, newUser.id)} className="btn btn-danger m-2">
-            Supprimer cet utilisateur
+              <button onClick={() => postDeleteUser(token, newUser.id)} className="btn btn-danger m-2">
+                Supprimer cet utilisateur
           </button>
-        </div>
-      </div>
+            </div>
+          </div>
         )) :
         <p>Aucun utilisateur à modérer</p>}
     </>

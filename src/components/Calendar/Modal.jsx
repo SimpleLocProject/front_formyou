@@ -1,11 +1,31 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserSessions } from "../../service/usersessionsApi"
+import { displayInfo } from "../../redux/middlewares/flashMiddleware";
 
-const Modal = ({ course, seats, date, classroom }) => {
+
+const Modal = ({ session, course, seats, date, classroom }) => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   const canAccess = useSelector(state => state.auth.canAccess)
   const isTeacher = useSelector(state => state.auth.isTeacher)
   const isAdmin = useSelector(state => state.auth.isAdmin)
+  const [sessionStudents, setSessionStudents] = useState([])
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const getStudents = async () => {
+      //fetchUserSessions(user) ready to use, waiting for backend
+      const loadUseressions = await getUserSessions();
+      if (!loadUseressions) {
+        dispatch(displayInfo("Aucun élèves pour cette session de disponible"))
+        return false
+      }
+      const userSessionFiltred = loadUseressions.filter((usersession) => usersession.session_id == session)
+      setSessionStudents(userSessionFiltred);
+    };
+    getStudents();
+  }, [session])
 
   return (
     <>
@@ -22,7 +42,14 @@ const Modal = ({ course, seats, date, classroom }) => {
               <p>date: {date}</p>
               <p>salle: {classroom}</p>
               <p>place restante: {seats}</p>
-              {(isTeacher || isAdmin) && <p>liste des élèves + note (CRUD) if date inférieur date.today</p>}
+              <p>liste des élèves + note (CRUD) if date inférieur date.today</p>
+              {(isTeacher || isAdmin) &&
+                sessionStudents.map((student) => {
+                  return (
+                    <li key={student.student.id}>{student.student.first_name} {student.student.last_name} || note: {student.note}</li>
+                  )
+                })
+              }
               {(!isTeacher && !isAdmin) && <p>s'inscrire s'il reste des places if date sup ou egal date.today OU note if canAccess and a participé and date inférieur date.today </p>}
             </div>
             <div className="modal-footer">
