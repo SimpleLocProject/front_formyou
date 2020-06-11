@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import fetchNewCourse from '../../service/newCourse'
-import { useSelector } from 'react-redux'
 import Cookies from "js-cookie";
+import fetchTeachers from '../../service/getTeachers'
+import { useDispatch } from 'react-redux'
+import { displayError } from "../../redux/middlewares/flashMiddleware";
 
 export const NewCourse = () => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [teacher_id, setTeacher_id] = useState("");
+    const [teachersList, setTeachersList] = useState("")
     const token = ("Bearer " + (Cookies.get('token')));
+    const dispatch = useDispatch()
+
     const newCourse = (e) => {
         const data = {
             course: {
@@ -22,7 +27,18 @@ export const NewCourse = () => {
         e.preventDefault();
         fetchNewCourse(data)
     }
-
+    useEffect(() => {
+        const getTeachers = async () => {
+            const teachers = await fetchTeachers();
+            if (!teachers) {
+                dispatch(displayError("Aucun professeur disponible"))
+                return false
+            }
+            setTeachersList(teachers);
+        };
+        getTeachers();
+    }, [dispatch]);
+    console.log(teachersList);
     return (
         <>
             <div className="card col-md-4">
@@ -46,14 +62,17 @@ export const NewCourse = () => {
                         required
                     />
                     <br />
-                    <input id="teacher_id"
-                        className="form-control"
-                        type="text"
-                        placeholder="ID du pofesseur"
-                        value={teacher_id}
+                    <select
                         onChange={(e) => setTeacher_id(e.target.value)}
-                        required
-                    />
+                        className="form-control form-control-lg"
+                    >
+                        <option value="">Selectionner un professeur</option>
+                        {teachersList && teachersList.map((teacher) => (
+                            <option value={teacher.id} key={teacher.id}>
+                                {teacher.first_name} {teacher.last_name}
+                            </option>
+                        ))}
+                    </select>
                     <br />
                     <input type="submit" value="Envoyer" />
                 </form>
