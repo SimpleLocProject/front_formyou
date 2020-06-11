@@ -16,10 +16,6 @@ const Register = () => {
   const history = useHistory();
   const handleStatus = (status) => {
     switch (status) {
-      case "Student":
-        setIsTeacher(false);
-        setIsAdmin(false);
-        break;
       case "Teacher":
         setIsTeacher(true);
         setIsAdmin(false);
@@ -28,6 +24,11 @@ const Register = () => {
         setIsTeacher(false);
         setIsAdmin(true);
         break;
+      case "Student":
+      default:
+        setIsTeacher(false);
+        setIsAdmin(false);
+        break
     }
   };
 
