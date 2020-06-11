@@ -22,7 +22,7 @@ const NewUsers = () => {
       setNewUsersList(newUsers);
     };
     getNewUsers();
-  }, [dispatch]);
+  }, []);
 
   return (
     <>

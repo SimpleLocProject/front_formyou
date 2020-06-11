@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { fetchUpdateUser } from "./../../service/UpdateUserApi";
 import { useDispatch, useSelector } from "react-redux";
-import { displayError } from "../../redux/middlewares/flashMiddleware";
+import { displayError, displaySuccess } from "../../redux/middlewares/flashMiddleware";
+
 const UpdateUser = ({ user }) => {
 
   const token = useSelector(state => state.auth.token);
@@ -11,15 +12,16 @@ const UpdateUser = ({ user }) => {
       { can_access: true }
   })
 
-
   const dispatch = useDispatch()
 
   const postUpdateUser = async (token, userId, body) => {
-    console.log(body);
     const updateUser = await fetchUpdateUser(token, userId, body);
     if (!updateUser) {
       dispatch(displayError("L'utilisateur n'a pas été mis à jour"))
       return false
+    }
+    if(updateUser){
+      dispatch(displaySuccess("L'utilisateur a bien été mis à jour"))
     }
   };
 

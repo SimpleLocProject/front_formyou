@@ -10,12 +10,10 @@ export const fetchUpdateUser = async (token, userId, body) => {
       },
       body: body
     });
-    console.log(response)
     if (!response.ok) {
       throw Error(response.statusText);
     }
     const updatetedUser = await response.json();
-    console.log(updatetedUser);
     return updatetedUser;
   } catch (error) {
     console.log(error);
