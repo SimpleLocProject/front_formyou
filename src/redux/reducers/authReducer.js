@@ -34,7 +34,7 @@ const authReducer = (state = initialState, action) => {
       Cookies.set("token", action.token);
       return {
         ...state,
-        action: action.token,
+        token: action.token,
         isAuthenticated: true,
         user: action.user,
         canAccess: action.user.can_access,
