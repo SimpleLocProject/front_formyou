@@ -30,7 +30,11 @@ Password pour les 3 : 123456
 
 ## 🐰 Auteurs
 Luca Montaigut : https://github.com/luca-montaigut
+
 Maxime Speroni : https://github.com/Laspargus
+
 Nathan Chateau : https://github.com/nathan-ch
+
 Hadrien Samouillan : https://github.com/DoubleLama
+
 Nans Noel : https://github.com/nans64
