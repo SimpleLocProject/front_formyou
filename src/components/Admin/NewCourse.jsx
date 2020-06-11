@@ -74,7 +74,7 @@ export const NewCourse = () => {
                         ))}
                     </select>
                     <br />
-                    <input type="submit" value="Envoyer" />
+                    <input className="btn btn-primary" type="submit" value="Envoyer" />
                 </form>
             </div>
         </>
