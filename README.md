@@ -2,11 +2,13 @@
 
 # Fonctionne de pair avec l'API, bien suivre les commandes du readme SVP
 
+API : https://github.com/ProjectMyLoc/api_formyou
+
 ## Preview https://formyou.herokuapp.com/
 
 ![](https://i.imgur.com/K30yTaa.png)
 
-API : https://github.com/ProjectMyLoc/api_formyou
+
 
 ## Installation
 
