@@ -1,14 +1,12 @@
 # React_Boilerplate
 
-Starter for api project with :
-- Redux and authentication ready to user with https://github.com/luca-montaigut/api_rails_6_boilerplate
-- React Router with authenticated/unauthenticated routes
-- Cookie Js for handling cookies
-- Environnement variables
+# Fonctionne de pair avec l'API, bien suivre les commandes du readme SVP
+
+API : https://github.com/ProjectMyLoc/api_formyou
 
 ## Installation
 
-`git clone git@github.com:luca-montaigut/front_formyou.git`
+`git clone git@github.com:ProjectMyLoc/front_formyou.git`
 
 `cd front_formyou`
 
@@ -20,5 +18,17 @@ Starter for api project with :
 
 Your website is now running on http://localhost:3000
 
+## Comptes tests
+
+Student : student@yopmail.com
+Teacher : teacher@yopmail.com
+Admin : admin@yopmail.comm
+
+Password pour les 3 : 123456
+
 ## 🐰 Auteurs
 Luca Montaigut : https://github.com/luca-montaigut
+Maxime Speroni : https://github.com/Laspargus
+Nathan Chateau : https://github.com/nathan-ch
+Hadrien Samouillan : https://github.com/DoubleLama
+Nans Noel : https://github.com/nans64
