@@ -6,14 +6,16 @@ import {
 } from "./../service/usersessionsApi";
 import { displayError } from "../redux/middlewares/flashMiddleware";
 
-const SessionLine = ({ session }) => {
-  const [participate, setParticipate] = useState(false);
+const SessionLine = ({ subscribed, session }) => {
+  const [participate, setParticipate] = useState(subscribed);
+  const [subscriptions, setSubscriptions] = useState(session.usersessions);
   const user_id = useSelector((state) => state.auth.user.id);
   const token = useSelector((state) => state.auth.token);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
 
-  const approveParticipation = async () => {
+  const subscribe = async () => {
+    console.log("subscription", subscriptions);
     const response = await createUserSession(session.id, user_id, token);
     if (!response) {
       dispatch(
@@ -21,17 +23,27 @@ const SessionLine = ({ session }) => {
       );
       return false;
     }
+    setSubscriptions(subscriptions.concat(response));
     setParticipate(!participate);
   };
 
-  const cancelParticipation = async () => {
-    const response = await destroyUserSession(session.id, user_id, token);
+  const user_session = subscriptions.filter(
+    (participation) => participation.student_id === user_id
+  );
+
+  const unsubscribe = async () => {
+    const response = await destroyUserSession(user_session[0], token);
     if (!response) {
       dispatch(
         displayError("Vous devez être connecter pour vous inscrire à un cours")
       );
       return false;
     }
+    setSubscriptions(
+      subscriptions.filter(
+        (subscription) => subscription.id !== user_session[0].id
+      )
+    );
     setParticipate(!participate);
   };
 
@@ -44,11 +56,11 @@ const SessionLine = ({ session }) => {
       {isAuthenticated && (
         <td>
           {participate ? (
-            <button className="btn btn-warning" onClick={cancelParticipation}>
+            <button className="btn btn-warning" onClick={unsubscribe}>
               Annuler
             </button>
           ) : (
-            <button className="btn btn-info" onClick={approveParticipation}>
+            <button className="btn btn-info" onClick={subscribe}>
               Participer
             </button>
           )}

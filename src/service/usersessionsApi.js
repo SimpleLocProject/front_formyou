@@ -27,23 +27,21 @@ export const createUserSession = async (session_id, user_id, token) => {
   }
 };
 
-export const destroyUserSession = async (session_id, user_id, token) => {
+export const destroyUserSession = async (user_session, token) => {
   const API_URL = process.env.REACT_APP_API_URL;
-  const data = {
-    usersession: {
-      student_id: user_id,
-      session_id,
-    },
-  };
+  console.log("dans mon api", user_session.id);
+  console.log(token);
   try {
-    const response = await fetch(`${API_URL}/api/v1/usersessions`, {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const response = await fetch(
+      `${API_URL}/api/v1/usersessions/${user_session.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (!response.ok) {
       throw Error(response.statusText);
     }

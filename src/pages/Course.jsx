@@ -7,9 +7,9 @@ import { displayError } from "./../redux/middlewares/flashMiddleware";
 import SessionLine from "./../components/SessionLine";
 const Course = () => {
   const { course_id } = useParams();
-  //const { token } = useSelector((state) => state.auth.token);
   const [sessions, setSessions] = useState([]);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     const getSessions = async () => {
@@ -19,11 +19,17 @@ const Course = () => {
         return false;
       }
       setSessions(fetchSessions);
-      console.log(fetchSessions);
     };
 
     getSessions();
   }, []);
+
+  const checkIfParticipate = (session) => {
+    const status = session.usersessions.some(
+      (subscription) => subscription.student_id === user.id
+    );
+    return status;
+  };
 
   return (
     <>
@@ -41,9 +47,21 @@ const Course = () => {
           </thead>
           <tbody>
             {sessions &&
-              sessions.map((session) => (
-                <SessionLine key={session.id} session={session} />
-              ))}
+              sessions.map((session) =>
+                checkIfParticipate(session) ? (
+                  <SessionLine
+                    subscribed={true}
+                    key={session.id}
+                    session={session}
+                  />
+                ) : (
+                  <SessionLine
+                    subscribed={false}
+                    key={session.id}
+                    session={session}
+                  />
+                )
+              )}
           </tbody>
         </table>
       </div>
